@@ -276,7 +276,7 @@ func TestProblem007FirstSixPrimes(t *testing.T) {
 
 func BenchmarkProblem007(b *testing.B) {
 	output := make(chan intresult)
-	go problem006(10001, output)
+	go problem007(10001, output)
 	_ = <-output
 }
 

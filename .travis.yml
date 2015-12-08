@@ -1,6 +1,4 @@
 language: go
 go:
   - tip
-script: |
-    make check
-    make
+script: make check euler

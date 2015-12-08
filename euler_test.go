@@ -80,3 +80,21 @@ func TestProblem003TestFactors(t *testing.T) {
 		t.Error("Problem #3: Factor Function Broken")
 	}
 }
+
+func TestProblem004(t *testing.T) {
+	output := make(chan intresult)
+	go problem004(3, output)
+	result := <-output
+	if result.result != 906609 {
+		t.Error("Problem #4: Wrong Answer", result.result)
+	}
+}
+
+func TestProblem004TestCase(t *testing.T) {
+	output := make(chan intresult)
+	go problem004(2, output)
+	result := <-output
+	if result.result != 9009 {
+		t.Error("Problem #4 Test Case: Wrong Answer", result.result)
+	}
+}

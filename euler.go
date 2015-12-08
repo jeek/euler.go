@@ -58,6 +58,50 @@ func problem003(i int, output chan intresult) {
 	output <- intresult{3, factors(i)[len(factors(i))-1]}
 }
 
+func reverse_int(i int) int {
+	answer := 0
+	for i > 0 {
+		answer *= 10
+		answer += i % 10
+		i /= 10
+	}
+	return answer
+}
+
+func is_palindrome(i int) bool {
+	if i == reverse_int(i) {
+		return true
+	}
+	return false
+}
+
+// https://groups.google.com/forum/#!msg/golang-nuts/PnLnr4bc9Wo/fvp154Hms2QJ
+func Pow(a, b int) int {
+	var result int = 1
+
+	for 0 != b {
+		if 0 != (b & 1) {
+			result *= a
+		}
+		b >>= 1
+		a *= a
+	}
+
+	return result
+}
+
+func problem004(numberlength int, output chan intresult) {
+	answer := 0
+	for i := Pow(10, numberlength-1); i < Pow(10, numberlength); i++ {
+		for j := i; j < Pow(10, numberlength); j++ {
+			if i*j > answer && is_palindrome(i*j) {
+				answer = i * j
+			}
+		}
+	}
+	output <- intresult{4, answer}
+}
+
 func main() {
 	var problemnumber int
 	flag.IntVar(&problemnumber, "problem", 0, "problem number to solve")
@@ -75,6 +119,10 @@ func main() {
 	if problemnumber == 0 || problemnumber == 3 {
 		count += 1
 		go problem003(600851475143, intanswers)
+	}
+	if problemnumber == 0 || problemnumber == 4 {
+		count += 1
+		go problem004(3, intanswers)
 	}
 	for count > 0 {
 		temp := <-intanswers

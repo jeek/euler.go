@@ -12,5 +12,6 @@ check:	euler.go euler_test.go
 	go fmt euler_test.go
 	export GOPATH=`pwd`
 	go test
+	go test -bench .
 
 test:	check

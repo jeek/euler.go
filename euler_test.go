@@ -20,6 +20,12 @@ func TestProblem001TestCase(t *testing.T) {
 	}
 }
 
+func BenchmarkProblem001(b *testing.B) {
+	output := make(chan intresult)
+	go problem001(1000000, output)
+	_ = <-output
+}
+
 func TestProblem002(t *testing.T) {
 	output := make(chan intresult)
 	go problem002(4000000, output)
@@ -27,6 +33,12 @@ func TestProblem002(t *testing.T) {
 	if result.result != 4613732 {
 		t.Error("Problem #2: Wrong Answer", result.result)
 	}
+}
+
+func BenchmarkProblem002(b *testing.B) {
+	output := make(chan intresult)
+	go problem002(400000000, output)
+	_ = <-output
 }
 
 func TestProblem002FirstTenFib(t *testing.T) {

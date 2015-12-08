@@ -153,6 +153,28 @@ func problem006(upperlimit int, output chan intresult) {
 	output <- intresult{6, (<-squareofsums) - (<-sumofsquares)}
 }
 
+func is_prime(i int) bool {
+	if i < 2 {
+		return false
+	}
+	for j := 2; j*j <= i; j++ {
+		if i%j == 0 {
+			return false
+		}
+	}
+	return true
+}
+
+func problem007(upperlimit int, output chan intresult) {
+	primes := []int{}
+	for i := 2; len(primes) < upperlimit; i++ {
+		if is_prime(i) {
+			primes = append(primes, i)
+		}
+	}
+	output <- intresult{7, primes[len(primes)-1]}
+}
+
 func main() {
 	var problemnumber int
 	flag.IntVar(&problemnumber, "problem", 0, "problem number to solve")
@@ -182,6 +204,10 @@ func main() {
 	if problemnumber == 0 || problemnumber == 6 {
 		count += 1
 		go problem006(100, intanswers)
+	}
+	if problemnumber == 0 || problemnumber == 7 {
+		count += 1
+		go problem007(10001, intanswers)
 	}
 	for count > 0 {
 		temp := <-intanswers

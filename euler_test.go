@@ -234,3 +234,48 @@ func BenchmarkProblem006(b *testing.B) {
 	go problem006(100, output)
 	_ = <-output
 }
+
+func TestProblem007(t *testing.T) {
+	output := make(chan intresult)
+	go problem007(10001, output)
+	result := <-output
+	t.Log(result)
+	if result.result != 104743 {
+		t.Error("Problem #7: Wrong Answer", result.result)
+	}
+}
+
+func TestProblem007TestCase(t *testing.T) {
+	output := make(chan intresult)
+	go problem007(6, output)
+	result := <-output
+	t.Log(result)
+	if result.result != 13 {
+		t.Error("Problem #7 Test Case: Wrong Answer", result.result)
+	}
+}
+
+func TestProblem007FirstSixPrimes(t *testing.T) {
+	thelist := []int{}
+	for i := 2; len(thelist) < 6; i++ {
+		if is_prime(i) {
+			thelist = append(thelist, i)
+		}
+	}
+	good := true
+	for i := 0; i < 6; i++ {
+		if thelist[i] != [6]int{2, 3, 5, 7, 11, 13}[i] {
+			good = false
+		}
+	}
+	t.Log(thelist)
+	if !good {
+		t.Error("Problem #7: Prime Generator Broken")
+	}
+}
+
+func BenchmarkProblem007(b *testing.B) {
+	output := make(chan intresult)
+	go problem006(10001, output)
+	_ = <-output
+}

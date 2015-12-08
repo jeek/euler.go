@@ -192,6 +192,18 @@ func problem008(length int, output chan intresult) {
 	output <- intresult{8, answer}
 }
 
+func problem009(target int, output chan intresult) {
+	for a := 1; a <= target; a++ {
+		for b := a + 1; a+b <= target; b++ {
+			for c := b + 1; a+b+c <= target; c++ {
+				if (a+b+c == target) && (a*a+b*b == c*c) {
+					output <- intresult{9, a * b * c}
+				}
+			}
+		}
+	}
+}
+
 func main() {
 	var problemnumber int
 	flag.IntVar(&problemnumber, "problem", 0, "problem number to solve")
@@ -229,6 +241,10 @@ func main() {
 	if problemnumber == 0 || problemnumber == 8 {
 		count += 1
 		go problem008(13, intanswers)
+	}
+	if problemnumber == 0 || problemnumber == 9 {
+		count += 1
+		go problem009(1000, intanswers)
 	}
 	for count > 0 {
 		temp := <-intanswers

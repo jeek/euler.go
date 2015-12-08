@@ -133,6 +133,26 @@ func problem005(upperlimit int, output chan intresult) {
 	output <- intresult{5, answer}
 }
 
+func problem006(upperlimit int, output chan intresult) {
+	sumofsquares := make(chan int)
+	squareofsums := make(chan int)
+	go func(upperlimit int, output chan int) {
+		result := 0
+		for i := 1; i <= upperlimit; i++ {
+			result += i * i
+		}
+		output <- result
+	}(upperlimit, sumofsquares)
+	go func(upperlimit int, output chan int) {
+		result := 0
+		for i := 1; i <= upperlimit; i++ {
+			result += i
+		}
+		output <- result * result
+	}(upperlimit, squareofsums)
+	output <- intresult{6, (<-squareofsums) - (<-sumofsquares)}
+}
+
 func main() {
 	var problemnumber int
 	flag.IntVar(&problemnumber, "problem", 0, "problem number to solve")
@@ -158,6 +178,10 @@ func main() {
 	if problemnumber == 0 || problemnumber == 5 {
 		count += 1
 		go problem005(20, intanswers)
+	}
+	if problemnumber == 0 || problemnumber == 6 {
+		count += 1
+		go problem006(100, intanswers)
 	}
 	for count > 0 {
 		temp := <-intanswers

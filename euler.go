@@ -204,6 +204,16 @@ func problem009(target int, output chan intresult) {
 	}
 }
 
+func problem010(upperlimit int, output chan intresult) {
+	total := 0
+	for i := 2; i < upperlimit; i++ {
+		if is_prime(i) {
+			total += i
+		}
+	}
+	output <- intresult{10, total}
+}
+
 func main() {
 	var problemnumber int
 	flag.IntVar(&problemnumber, "problem", 0, "problem number to solve")
@@ -245,6 +255,10 @@ func main() {
 	if problemnumber == 0 || problemnumber == 9 {
 		count += 1
 		go problem009(1000, intanswers)
+	}
+	if problemnumber == 0 || problemnumber == 10 {
+		count += 1
+		go problem010(2000000, intanswers)
 	}
 	for count > 0 {
 		temp := <-intanswers

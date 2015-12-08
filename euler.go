@@ -102,6 +102,25 @@ func problem004(numberlength int, output chan intresult) {
 	output <- intresult{4, answer}
 }
 
+func gcd(a int, b int) int {
+	for b != 0 {
+		a, b = b, a%b
+	}
+	return a
+}
+
+func lcm(a int, b int) int {
+	return a * b / gcd(a, b)
+}
+
+func problem005(upperlimit int, output chan intresult) {
+	answer := 1
+	for i := 1; i <= upperlimit; i++ {
+		answer = lcm(answer, i)
+	}
+	output <- intresult{5, answer}
+}
+
 func main() {
 	var problemnumber int
 	flag.IntVar(&problemnumber, "problem", 0, "problem number to solve")
@@ -123,6 +142,10 @@ func main() {
 	if problemnumber == 0 || problemnumber == 4 {
 		count += 1
 		go problem004(3, intanswers)
+	}
+	if problemnumber == 0 || problemnumber == 5 {
+		count += 1
+		go problem005(20, intanswers)
 	}
 	for count > 0 {
 		temp := <-intanswers

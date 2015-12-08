@@ -98,3 +98,21 @@ func TestProblem004TestCase(t *testing.T) {
 		t.Error("Problem #4 Test Case: Wrong Answer", result.result)
 	}
 }
+
+func TestProblem005(t *testing.T) {
+	output := make(chan intresult)
+	go problem005(20, output)
+	result := <-output
+	if result.result != 232792560 {
+		t.Error("Problem #5: Wrong Answer", result.result)
+	}
+}
+
+func TestProblem005TestCase(t *testing.T) {
+	output := make(chan intresult)
+	go problem005(10, output)
+	result := <-output
+	if result.result != 2520 {
+		t.Error("Problem #5 Test Case: Wrong Answer", result.result)
+	}
+}

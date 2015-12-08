@@ -204,14 +204,35 @@ func problem009(target int, output chan intresult) {
 	}
 }
 
-func problem010(upperlimit int, output chan intresult) {
-	total := 0
+func primesunder(upperlimit int) []int {
+	array := []int{}
+	for i := 0; i < upperlimit; i++ {
+		array = append(array, 0)
+	}
+	array[0] = 1
+	array[1] = 1
+	result := []int{}
 	for i := 2; i < upperlimit; i++ {
-		if is_prime(i) {
-			total += i
+		if array[i] == 0 {
+			result = append(result, i)
+			for j := i * i; j < upperlimit; j += i {
+				array[j] = 1
+			}
 		}
 	}
-	output <- intresult{10, total}
+	return result
+}
+
+func sum(thelist []int) int {
+	total := 0
+	for i := 0; i < len(thelist); i++ {
+		total += thelist[i]
+	}
+	return total
+}
+
+func problem010(upperlimit int, output chan intresult) {
+	output <- intresult{10, sum(primesunder(upperlimit))}
 }
 
 func main() {

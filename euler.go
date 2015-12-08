@@ -20,8 +20,7 @@ func problem001a(upperlimit int, output chan intresult) {
 
 func problem001b(upperlimit int, output chan intresult) {
 	upperlimit -= 1
-	temp := 3*(upperlimit/3)*(upperlimit/3+1)/2 + 5*(upperlimit/5)*(upperlimit/5+1)/2 - 15*(upperlimit/15)*(upperlimit/15+1)/2
-	output <- intresult{1, temp}
+	output <- intresult{1, 3*(upperlimit/3)*(upperlimit/3+1)/2 + 5*(upperlimit/5)*(upperlimit/5+1)/2 - 15*(upperlimit/15)*(upperlimit/15+1)/2}
 }
 
 func problem001(upperlimit int, output chan intresult) {

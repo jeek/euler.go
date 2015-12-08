@@ -25,7 +25,7 @@ func problem001b(upperlimit int, output chan intresult) {
 }
 
 func problem001(upperlimit int, output chan intresult) {
-	fastest := make(chan intresult)
+	fastest := make(chan intresult,2)
 	go problem001a(upperlimit, fastest)
 	go problem001b(upperlimit, fastest)
 	output <- <-fastest
@@ -231,8 +231,25 @@ func sum(thelist []int) int {
 	return total
 }
 
-func problem010(upperlimit int, output chan intresult) {
+func problem010a(upperlimit int, output chan intresult) {
 	output <- intresult{10, sum(primesunder(upperlimit))}
+}
+
+func problem010b(upperlimit int, output chan intresult) {
+	total := 0
+	for i := 2; i < upperlimit; i++ {
+		if is_prime(i) {
+			total += i
+		}
+	}
+	output <- intresult{10, total}
+}
+
+func problem010(upperlimit int, output chan intresult) {
+	fastest := make(chan intresult,2)
+	go problem010a(upperlimit, fastest)
+	go problem010b(upperlimit, fastest)
+	output <- <-fastest
 }
 
 func main() {

@@ -93,6 +93,12 @@ func TestProblem003TestFactors(t *testing.T) {
 	}
 }
 
+func BenchmarkProblem003(b *testing.B) {
+	output := make(chan intresult)
+	go problem003(600851475143, output)
+	_ = <-output
+}
+
 func TestProblem004(t *testing.T) {
 	output := make(chan intresult)
 	go problem004(3, output)
@@ -111,6 +117,12 @@ func TestProblem004TestCase(t *testing.T) {
 	}
 }
 
+func BenchmarkProblem004(b *testing.B) {
+	output := make(chan intresult)
+	go problem004(3, output)
+	_ = <-output
+}
+
 func TestProblem005(t *testing.T) {
 	output := make(chan intresult)
 	go problem005(20, output)
@@ -127,4 +139,10 @@ func TestProblem005TestCase(t *testing.T) {
 	if result.result != 2520 {
 		t.Error("Problem #5 Test Case: Wrong Answer", result.result)
 	}
+}
+
+func BenchmarkProblem005(b *testing.B) {
+	output := make(chan intresult)
+	go problem005(20, output)
+	_ = <-output
 }

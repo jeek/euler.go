@@ -8,7 +8,7 @@ type intresult struct {
 	result        int
 }
 
-func problem001(upperlimit int, output chan intresult) {
+func problem001a(upperlimit int, output chan intresult) {
 	total := 0
 	for i := 0; i < upperlimit; i++ {
 		if i%3 == 0 || i%5 == 0 {
@@ -16,6 +16,19 @@ func problem001(upperlimit int, output chan intresult) {
 		}
 	}
 	output <- intresult{1, total}
+}
+
+func problem001b(upperlimit int, output chan intresult) {
+	upperlimit -= 1
+	temp := 3*(upperlimit/3)*(upperlimit/3+1)/2 + 5*(upperlimit/5)*(upperlimit/5+1)/2 - 15*(upperlimit/15)*(upperlimit/15+1)/2
+	output <- intresult{1, temp}
+}
+
+func problem001(upperlimit int, output chan intresult) {
+	fastest := make(chan intresult)
+	go problem001a(upperlimit, fastest)
+	go problem001b(upperlimit, fastest)
+	output <- <-fastest
 }
 
 func fib(a int, b int, output chan int) {

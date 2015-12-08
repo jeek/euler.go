@@ -279,3 +279,29 @@ func BenchmarkProblem007(b *testing.B) {
 	go problem006(10001, output)
 	_ = <-output
 }
+
+func TestProblem008(t *testing.T) {
+	output := make(chan intresult)
+	go problem008(13, output)
+	result := <-output
+	t.Log(result)
+	if result.result != 23514624000 {
+		t.Error("Problem #8: Wrong Answer", result.result)
+	}
+}
+
+func TestProblem008TestCase(t *testing.T) {
+	output := make(chan intresult)
+	go problem008(4, output)
+	result := <-output
+	t.Log(result)
+	if result.result != 5832 {
+		t.Error("Problem #8 Test Case: Wrong Answer", result.result)
+	}
+}
+
+func BenchmarkProblem008(b *testing.B) {
+	output := make(chan intresult)
+	go problem008(13, output)
+	_ = <-output
+}
